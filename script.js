@@ -1,5 +1,8 @@
 var todo=[];
 var complete=[];
+document.getElementById("Todoupdate").style.display="none";
+document.getElementById("Compupdate").style.display="none";
+// function for add task in in todo section
 function add(){
 var task=document.getElementById("new-task").value;
 var obj={
@@ -12,9 +15,12 @@ if(obj.data==""){
 else{
     todo.push(obj);
     display();
+    document.getElementById("new-task").value=""
 }
 }
+// display function
 function display(){
+    
 var  list='<ul>'
 todo.forEach((element) => {
     list+=
@@ -28,7 +34,9 @@ todo.forEach((element) => {
 });
  list+='</ul>'; 
  document.getElementById("output").innerHTML=list;
+ 
 }
+// for deleting the todo task
 function deletetask(val){
       for(let i=0; i < todo.length; i++){
         if(val == todo[i].id){
@@ -38,7 +46,10 @@ function deletetask(val){
       }
       display();
 }
+// for editing the todo task
 function edit_task(val){
+    document.getElementById("Todoupdate").style.display="block";
+    document.getElementById("add").style.display="none";
     console.log('hiii');
     for(let i=0;i<todo.length;i++){
         if(val == todo[i].id){
@@ -49,23 +60,25 @@ function edit_task(val){
     }
     display();
 }
+// updating todo
 function updatetodo(){
 console.log(' you have clicked on update todo');
+document.getElementById("Todoupdate").style.display="none";
+document.getElementById("add").style.display="block";
 add();
 display();
 }
+// functinality for complete task section
 function completetask(){
-    var comp='<table><tr></tr>'
+    var comp='<ul>'
     complete.forEach( (element) => {
-        comp+='<tr><td>'
-            +'<input type="checkbox"/>'+
-           '</td><td>'+
+        comp+='<li><label>'+
             element.data+ 
-            '</td><td>'+
+            '</label>'+
             '<input type="button" value="Edit" onclick="editcomplete(\''+ element.id +'\')"/><input type="button" value="Delete" onclick="deletecomplete(\''+ element.id +'\')"/>'+
-            '</td></tr>';
+            '</li>';
     });
-    comp+='</table>';  
+    comp+='</ul>';  
     document.getElementById("res").innerHTML=comp; 
 }  
 function comp(val) {
@@ -78,6 +91,7 @@ function comp(val) {
     display();
     completetask();
 }
+// delete complete task
 function deletecomplete(val){
     for(let i=0 ; i < complete.length ; i++){
         if(val==complete[i].id){
@@ -87,8 +101,11 @@ function deletecomplete(val){
     }
     completetask();
 }
+// edit complete task
 function editcomplete(val){
-for (let i = 0; i < complete.length; i++) {
+    document.getElementById("Compupdate").style.display="block";
+    document.getElementById("add").style.display="none";
+    for (let i = 0; i < complete.length; i++) {
     if(val==complete[i].id){
         document.getElementById('new-task').value=complete[i].data;
         complete.splice(i,1);
@@ -96,8 +113,10 @@ for (let i = 0; i < complete.length; i++) {
     completetask();
 }
 }
+// update complete task
 function updatecomplete(){
     document.getElementById("Compupdate").style.display="none";
+    document.getElementById("add").style.display="block";
     var task=document.getElementById("new-task").value;
     var obj={
         data:task,
@@ -109,5 +128,6 @@ function updatecomplete(){
     else{
         complete.push(obj);
         completetask();
+        document.getElementById("new-task").value="";
     }
 }
