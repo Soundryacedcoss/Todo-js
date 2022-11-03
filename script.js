@@ -20,7 +20,7 @@ else{
 }
 // display function
 function display(){
-    
+  
 var  list='<ul>'
 todo.forEach((element) => {
     list+=
@@ -50,15 +50,19 @@ function deletetask(val){
 function edit_task(val){
     document.getElementById("Todoupdate").style.display="block";
     document.getElementById("add").style.display="none";
-    console.log('hiii');
-    for(let i=0;i<todo.length;i++){
+    for(let i=0;i<todo.length;i++){ 
         if(val == todo[i].id){
             console.log(todo[i].data);
             document.getElementById('new-task').value=todo[i].data;
             todo.splice(i,1);
-        }
+        } 
     }
     display();
+    // disable the edit button
+    var DisableEditTodo=document.getElementsByClassName("edit");
+    for(var i=0;i<DisableEditTodo.length;i++){
+        DisableEditTodo[i].disabled=true;
+    }
 }
 // updating todo
 function updatetodo(){
@@ -75,7 +79,7 @@ function completetask(){
         comp+='<li><label>'+
             element.data+ 
             '</label>'+
-            '<input type="button" value="Edit" onclick="editcomplete(\''+ element.id +'\')"/><input type="button" value="Delete" onclick="deletecomplete(\''+ element.id +'\')"/>'+
+            '<input type="button" class="editComp" value="Edit" onclick="editcomplete(\''+ element.id +'\')"/><input type="button" value="Delete" onclick="deletecomplete(\''+ element.id +'\')"/>'+
             '</li>';
     });
     comp+='</ul>';  
@@ -110,8 +114,14 @@ function editcomplete(val){
         document.getElementById('new-task').value=complete[i].data;
         complete.splice(i,1);
     }
-    completetask();
-}
+   }
+   completetask();
+//    here i disable complete section edit button
+   var DisableEditComp=document.getElementsByClassName("editComp");
+   for(var i=0;i<DisableEditComp.length;i++){
+        DisableEditComp[i].disabled=true;
+   }
+
 }
 // update complete task
 function updatecomplete(){
