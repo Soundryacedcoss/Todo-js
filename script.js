@@ -52,7 +52,6 @@ function edit_task(val){
     document.getElementById("add").style.display="none";
     for(let i=0;i<todo.length;i++){ 
         if(val == todo[i].id){
-            console.log(todo[i].data);
             document.getElementById('new-task').value=todo[i].data;
             todo.splice(i,1);
         } 
@@ -66,7 +65,6 @@ function edit_task(val){
 }
 // updating todo
 function updatetodo(){
-console.log(' you have clicked on update todo');
 document.getElementById("Todoupdate").style.display="none";
 document.getElementById("add").style.display="block";
 add();
